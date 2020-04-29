@@ -218,7 +218,7 @@ public:
             return omg == iterator;
         }
         void operator =(myiter cur){
-            iterator = cur;
+            iterator = cur.iterator;
         }
         void operator =(element* omg){
             iterator = omg;
@@ -226,6 +226,36 @@ public:
         bool operator !=(element* omg){
             return iterator != omg;
         }
+        bool operator !=(myiter heh){
+            return iterator != heh.iterator;
+        }
+        bool operator < (myiter heh){
+            return iterator-> cur < heh.iterator -> cur;
+        }
+        int operator -(myiter heh){
+            element *elem = heh.iterator;
+            element *elem2 = iterator;
+            int z = 0;
+            while(elem2 != elem){
+                elem--;
+                z += 1;
+            }
+            return z;
+        }
+        myiter operator +(int num){
+            while(num > 0){
+                iterator = iterator -> next;
+                num--;
+            }
+            return *this;
+        }
+        myiter operator -(int num){
+            while(num > 0){
+                iterator = iterator -> prev;
+                num--;
+            }
+        }
+
         element *iterator;
     };
 private:
