@@ -1,36 +1,32 @@
 #include <iostream>
+#include <algorithm>
 #include "container.h"
-#include <string>
 
+using namespace std;
 
 int main() {
-    try {
-        container<int> mycheck(3);
-        mycheck.push_end(5);
-        mycheck.push_end(7);
-        mycheck.push_end(89);
-        mycheck.push_end(91);
-        std::cout << mycheck[0] << '\n';
-        container<int>::myiter iter = mycheck.begin();
-        iter++;
-        std::cout << *iter;
-        std::cout << "\nCheck 2\n";
-        for (int i = 0; i < mycheck.size(); i++) {
-            std::cout << mycheck[i] << ' ';
-        }
-        std::cout << "\nCheck 3\n";
-        for (container<int>::myiter iter1 = mycheck.begin(); iter1 != mycheck.end(); iter1++) {
-            std::cout << *iter1 << ' ';
-        }
-        std::cout << "\n Check 4\n";
-        mycheck.capacity_change(1);
-        iter = mycheck.begin();
-        iter++;
-        iter++;
-        std::cout << *iter;
+    unsigned int capacity;
+    cin >> capacity;
+    circular_buffer<int> buffer(capacity);
+    int cur_size = 0;
+    while(cur_size != capacity){
+        int num = 0;
+        cin >> num;
+        buffer.push_back(num);
+        cur_size++;
     }
-    catch(exception &a){
-        std :: cerr << a.what();
+    for(int i = 0; i < cur_size; i++){
+        cout << buffer[i] << ' ';
     }
-    return 0;
+    cout << '\n';
+    buffer.print_all();
+    buffer.resize(5);
+    buffer.print_all();
+    sort(buffer.begin(), buffer.end());
+    buffer.print_all();
+    auto it = find(buffer.begin(),buffer.end(),2);
+    cout << *it << ' ';
+    for(auto it = buffer.begin(); it != buffer.end(); it++){
+        cout << *it << ' ';
+    }
 }
